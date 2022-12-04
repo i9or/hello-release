@@ -1,0 +1,30 @@
+{
+  "name": "hello-release",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i9or/hello-release.git"
+  },
+  "author": "Igor <dont@bzzr.me> (https://ignorethis.page/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/i9or/hello-release/issues"
+  },
+  "homepage": "https://github.com/i9or/hello-release#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.0"
+  },
+  "files": [
+    "index.mjs",
+    "npm-shrinkwrap.json"
+  ]
+}
