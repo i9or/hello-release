@@ -25,5 +25,4 @@ jobs:
     - run: npm i
     - run: npm shrinkwrap
     - run: npm pack
-    - run: ls -la
-    - run: gh release list
+    - run: npm pkg get version | xargs -I{} gh release create v{} ./*.tgz --generate-notes
