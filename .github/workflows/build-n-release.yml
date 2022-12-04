@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      GH_TOKEN: ${{ github.token }}
-
     strategy:
       matrix:
         node-version: [18.x]
@@ -23,6 +20,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: "npm"
     - run: npm i
-    - run: npm shrinkwrap
-    - run: npm pack
-    - run: npm pkg get version | xargs -I{} gh release create v{} ./*.tgz --generate-notes
+    - name: Pack a release
+      run: |
+        npm shrinkwrap
+        npm pack
+    - name: Create a release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: npm pkg get version | xargs -I{} gh release create v{} ./*.tgz --generate-notes
