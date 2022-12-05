@@ -1,0 +1,28 @@
+name: Manual Release
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.xh
+        cache: "npm"
+    - run: npm i
+    - name: Pack a release
+      run: |
+        npm shrinkwrap
+        npm pack
+    - name: Create a release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: npm pkg get version | xargs -I{} gh release create v{} ./*.tgz --generate-notes
