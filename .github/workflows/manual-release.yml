@@ -18,6 +18,10 @@ jobs:
       run: |
         npm shrinkwrap
         npm pack
+    - name: Print version
+      env:
+        RELEASE_VERSION: ${{ npm pkg get version | xargs }}
+      run: echo $RELEASE_VERSION
     - name: Create a release
       env:
         GH_TOKEN: ${{ github.token }}
