@@ -1,6 +1,6 @@
 name: Manual Release
 
-on: workflow_dispatch
+on: push
 
 jobs:
   build:
@@ -18,11 +18,11 @@ jobs:
       run: |
         npm shrinkwrap
         npm pack
+    - name: Set version
+      run: echo "RELEASE_VERSION=v$(npm pkg get version | xargs)" >> $GITHUB_ENV
     - name: Print version
-      env:
-        RELEASE_VERSION: ${{ npm pkg get version | xargs }}
       run: echo $RELEASE_VERSION
     - name: Create a release
       env:
         GH_TOKEN: ${{ github.token }}
-      run: npm pkg get version | xargs -I{} gh release create v{} ./*.tgz --generate-notes
+      run: gh release create "v${RELEASE_VERSION}" ./*.tgz --generate-notes
